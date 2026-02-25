@@ -1,5 +1,7 @@
 import requests
 import json
+import time
+import argparse
 
 # Function to get longitude and latitude from user input
 def get_coordinates():
@@ -57,10 +59,53 @@ def send_post_request(longitude, latitude):
     except Exception as e:
         print(f"Unexpected error: {e}")
 
+# Function to process a JSON file of coordinates and send requests with rate limiting
+
+def process_coordinates_file(file_path, delay_seconds=1):
+    """Load coordinates from a JSON file, sort them, and send POST requests.
+
+    Keys within the JSON should be strings of the form "lat,lon". We sort
+    numerically by latitude then longitude to ensure deterministic ordering.
+    After each request a delay is inserted to respect the specified rate limit.
+    """
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            coords = json.load(f)
+    except Exception as e:
+        print(f"Failed to read coordinates file {file_path}: {e}")
+        return
+
+    # Parse keys and sort
+    points = []
+    for key in coords.keys():
+        try:
+            lat_str, lon_str = key.split(',')
+            lat = float(lat_str)
+            lon = float(lon_str)
+        except ValueError:
+            continue
+        points.append((lat, lon))
+
+    points.sort()
+
+    for lat, lon in points:
+        # send_post_request takes longitude first
+        send_post_request(lon, lat)
+        time.sleep(delay_seconds)
+
+
 # Main function to execute the program
 if __name__ == "__main__":
-    # Get longitude and latitude from the user
-    longitude, latitude = get_coordinates()
-    
-    # Send the POST request and save the response
-    send_post_request(longitude, latitude)
+    parser = argparse.ArgumentParser(
+        description="Send POST requests using manual input or a JSON file of coordinates"
+    )
+    parser.add_argument("--file", "-f", help="JSON file with coordinates", default="coordinates.json")
+    parser.add_argument("--delay", "-d", type=float, help="Seconds between requests (rate limit)", default=1.0)
+    args = parser.parse_args()
+
+    if args.file:
+        print(f"Using file {args.file}, delay={args.delay}s")
+        process_coordinates_file(args.file, delay_seconds=args.delay)
+    else:
+        longitude, latitude = get_coordinates()
+        send_post_request(longitude, latitude)
