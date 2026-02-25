@@ -1,50 +1,14 @@
-مراحل برنامه:
-
-ورودی مختصات و شعاع: برنامه باید مختصات مرکز دایره و شعاع آن را از شما دریافت کند.
-
-محاسبه مختصات‌های در دایره: برای ایجاد مختصات‌های 10 متری در داخل دایره، باید از الگوریتمی استفاده کنیم که با استفاده از فاصله‌ی 10 متر از مرکز، نقاط را محاسبه کند.
-
-ذخیره‌سازی مختصات‌ها: مختصات‌ها به صورت دیکشنری در یک فایل JSON ذخیره می‌شود.
+<h1>GEORGIA MAP GOV<h1>
 
 
-توضیحات کد:
+**step 1**
+at first, the **math-beta.py** will take a langtitute and longtitude as input,
+then will ask for Raius as the outer border,
+then will make a circle with the Radius that was given and make a JSON file dict structured of coordinates,
 
-محاسبه مختصات‌ها:
+**step2**
+then when you execute **main.py** it will take the JSON output from the math-beta
+as the input,
+and sends Requests to the MAP.GOV.GE as api POST, with the rate limit of 1 request per second.
+EACH COORDINATE will be saved as a seperated Json file with dict structures.
 
-تابع generate_coordinates_in_circle مختصات‌هایی را در شعاع مشخص (مثلاً 10 متر) اطراف یک نقطه محاسبه می‌کند.
-
-این تابع با استفاده از اندازه‌گیری درجات عرض و طول، مختصات‌هایی در محدوده دایره را ایجاد می‌کند.
-
-مسافت بین دو نقطه:
-
-از فرمول Haversine برای محاسبه مسافت بین دو نقطه جغرافیایی استفاده می‌کنیم. این فرمول مسافت دایره‌ای روی سطح کره زمین را حساب می‌کند.
-
-ذخیره‌سازی مختصات‌ها:
-
-مختصات‌ها به صورت یک دیکشنری در فایل coordinates.json ذخیره می‌شود. هر نقطه به صورت "latitude,longitude" به عنوان کلید و مختصات به صورت دیکشنری درون آن ذخیره می‌شود.
-
-نحوه استفاده از برنامه:
-
-برنامه را در یک فایل پایتون (مثلاً generate_coordinates.py) ذخیره کنید.
-
-در خط فرمان یا ترمینال وارد شوید و برنامه را اجرا کنید:
-
-python generate_coordinates.py
-
-از شما خواسته می‌شود که مختصات مرکز دایره (عرض و طول جغرافیایی) و شعاع دایره را وارد کنید.
-
-مثال ورودی:
-
-Enter the latitude of the center point: 42.120437
-Enter the longitude of the center point: 44.014132
-Enter the radius in meters: 100
-
-پس از اجرای برنامه، مختصات نقاط داخل دایره 10 متری از مرکز محاسبه شده و در فایلی به نام coordinates.json ذخیره می‌شود.
-
-نتیجه:
-
-مختصات دایره‌ای با شعاع مشخص به همراه مختصات‌های 10 متری به صورت دیکشنری در فایل JSON ذخیره می‌شود.
-
-این فایل JSON شامل مختصات دقیق در قالب latitude و longitude خواهد بود.
-
-اگر سوالی داشتید یا نیاز به تغییرات دیگری در برنامه دارید، خوشحال می‌شوم کمک کنم!
