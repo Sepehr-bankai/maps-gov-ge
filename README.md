@@ -1,6 +1,8 @@
 <h1>GEORGIA MAP GOV<h1>
 
-
+THE MAIN GOAL OF THIS PROJECT was that i find a way to get Cadastrial codes and Names of the owners of the Georgia's houses with greater speed and better way than clicking on the map.
+the best way was to send API rquests simontenisly and a way to get that was to send the longtitute and latitude of the location in the form of JSON.
+YOU CAAN SEE HOW IT WORKS BELOW...
 
 # STEP ONE
 
