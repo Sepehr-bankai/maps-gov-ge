@@ -16,7 +16,7 @@ then will make a circle with the Radius that was given and make a JSON file dict
 then when you execute **main.py** it will take the JSON output from the math-beta
 as the input,
 
-and sends Requests to the MAP.GOV.GE as api POST, with the rate limit of 1 request per second.
+and sends Requests to the MAP.GOV.GE as API POST requests, with a default rate limit of 100 requests per minute.
 
 EACH COORDINATE will be saved as a seperated Json file with dict structures.
 
